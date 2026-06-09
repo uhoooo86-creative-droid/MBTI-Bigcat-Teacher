@@ -308,7 +308,7 @@
 </div>
 
 <script>
-const BASE = './';
+const BASE = 'https://raw.githubusercontent.com/uhoooo86-creative-droid/MBTI-Bigcat-Teacher/main/';
 
 const cards = [
   {id:1, type:"INTJ",group:"analyst", emoji:"🎯",name:"격파 미션 카드",      goal:"단계형 전략 수업",  quote:"Step 1 clear! Next mission!", game:"격파 뒤 단어 꺼내기",    description:"단계별 미션을 완료하며 목표 어휘를 학습합니다.",                                                             audio:"assets/audio/Mission-Breaker_BGM.mp3",               pdf:"assets/pdf/Mission-Breaker.pdf"},
@@ -351,7 +351,7 @@ cards.forEach(c => {
     </div>
     <div class="card-actions">
       <button class="btn" onclick="openModal(${c.id}, event)">🎵 음원 듣기</button>
-      <a class="btn" href="${c.pdf}" download onclick="event.stopPropagation()">⬇ 교구</a>
+      <a class="btn" href="${BASE + c.pdf}" download onclick="event.stopPropagation()">⬇ 교구</a>
     </div>
     <div class="card-watermark">${c.id}</div>
   `;
@@ -445,16 +445,17 @@ function openModal(id, e) {
   document.getElementById('modalType').style.color = colors[c.group];
   document.getElementById('modalName').textContent = c.name;
   document.getElementById('modalDesc').textContent = c.description;
-  document.getElementById('bgmLabel').textContent = `BGM — ${c.name}`;
-  document.getElementById('modalDlBtn').href = c.pdf;
-  document.getElementById('modalDlBtn').download = `${c.type}_card.pdf`;
+  document.getElementById('bgmLabel').textContent = `🎵 ${c.name}`;
+  document.getElementById('modalDlBtn').href = BASE + c.pdf;
+  document.getElementById('modalDlBtn').download = `${c.name}.pdf`;
+  document.getElementById('modalDlBtn').textContent = `⬇ ${c.name} 교구 다운로드`;
 
   // color progress bars
   document.getElementById('bgmProgress').style.background = colors[c.group];
   document.getElementById('instrProgress').style.background = colors[c.group];
 
-  // setup audio
-  bgmAudio = new Audio(c.audio);
+  // setup audio — absolute URL for GitHub Pages CORS
+  bgmAudio = new Audio(BASE + c.audio);
   instrAudio = null;
   document.getElementById('instrRow').style.display = 'none';
   setupAudio(bgmAudio, bgmBtn, document.getElementById('bgmProgress'), document.getElementById('bgmDuration'));
