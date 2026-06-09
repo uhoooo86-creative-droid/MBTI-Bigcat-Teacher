@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MBTI 활동 카드 16장</title>
+<link href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;700;900&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f5f5f0;
+    --white: #ffffff;
+    --ink: #111111;
+    --ink-soft: #444444;
+    --ink-muted: #999999;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: 'Noto Sans KR', sans-serif;
+    min-height: 100vh;
+    padding: 64px 32px 80px;
+  }
+
+  /* ── HEADER ── */
+  .header { text-align: center; margin-bottom: 16px; }
+  .header-badge {
+    display: inline-block;
+    background: var(--ink); color: #fff;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 11px; letter-spacing: 4px;
+    padding: 5px 14px; border-radius: 4px; margin-bottom: 20px;
+  }
+  .header-title {
+    font-family: 'Black Han Sans', sans-serif;
+    font-size: clamp(48px, 8vw, 96px);
+    letter-spacing: -3px; line-height: 0.95;
+    color: var(--ink); margin-bottom: 12px;
+  }
+  .header-title span {
+    display: inline-block;
+    background: var(--ink); color: #fff;
+    padding: 0 12px 4px; border-radius: 8px;
+  }
+  .header-sub { font-size: 13px; color: var(--ink-muted); letter-spacing: 2px; margin-bottom: 48px; }
+
+  /* ── LEGEND ── */
+  .legend { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 52px; }
+  .legend-chip {
+    display: flex; align-items: center; gap: 7px;
+    font-size: 12px; font-weight: 700; color: var(--ink);
+    background: var(--white); border: 2px solid var(--ink);
+    border-radius: 30px; padding: 5px 14px; cursor: pointer;
+    transition: background 0.15s;
+  }
+  .legend-chip:hover { background: var(--ink); color: #fff; }
+  .legend-chip.active { background: var(--ink); color: #fff; }
+  .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── GRID ── */
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+    gap: 18px; max-width: 1300px; margin: 0 auto;
+  }
+
+  /* ── CARD ── */
+  .card {
+    background: var(--white);
+    border: 2.5px solid var(--ink);
+    border-radius: 20px; overflow: hidden;
+    position: relative;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    cursor: pointer;
+  }
+  .card:hover {
+    transform: translateY(-5px) rotate(-0.4deg);
+    box-shadow: 6px 10px 0 var(--ink);
+  }
+  .card.hidden { display: none; }
+
+  .card-head {
+    padding: 18px 22px 16px;
+    border-bottom: 2.5px solid var(--ink);
+    position: relative;
+  }
+  .card-num { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--ink-muted); margin-bottom: 4px; }
+  .card-type { font-family: 'Bebas Neue', sans-serif; font-size: 44px; letter-spacing: 4px; line-height: 1; }
+  .card-name { font-family: 'Black Han Sans', sans-serif; font-size: 13px; color: var(--ink-soft); margin-top: 5px; }
+  .card-badge {
+    position: absolute; top: 16px; right: 16px;
+    width: 40px; height: 40px; border-radius: 10px;
+    border: 2px solid var(--ink);
+    display: flex; align-items: center; justify-content: center; font-size: 20px;
+  }
+
+  .card-body { padding: 16px 22px 16px; }
+  .card-goal { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: var(--ink-soft); margin-bottom: 11px; }
+  .card-quote {
+    border-radius: 10px; border: 2px solid var(--ink);
+    padding: 10px 13px; font-size: 13px; font-weight: 900;
+    color: var(--ink); line-height: 1.45; margin-bottom: 14px;
+  }
+  .card-game {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-size: 11px; font-weight: 700;
+    border-radius: 30px; padding: 5px 12px;
+    border: 2px solid var(--ink);
+  }
+
+  /* ── CARD ACTIONS ── */
+  .card-actions {
+    display: flex; gap: 8px;
+    padding: 0 22px 18px;
+  }
+  .btn {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 6px;
+    padding: 8px 10px; border-radius: 10px;
+    border: 2px solid var(--ink);
+    font-size: 11px; font-weight: 700;
+    cursor: pointer; transition: background 0.15s, color 0.15s;
+    background: var(--white); color: var(--ink);
+    text-decoration: none;
+  }
+  .btn:hover { background: var(--ink); color: #fff; }
+  .btn.playing { color: #fff; }
+
+  .card-watermark {
+    position: absolute; bottom: -4px; right: 14px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 80px; line-height: 1;
+    opacity: 0.05; pointer-events: none; user-select: none; color: var(--ink);
+  }
+
+  /* group theming */
+  .analyst  .card-head { background: #eef2ff; }
+  .analyst  .card-type { color: #4f46e5; }
+  .analyst  .card-badge { background: #c7d2fe; }
+  .analyst  .card-game  { background: #c7d2fe; }
+  .analyst  .btn.playing { background: #4f46e5; border-color: #4f46e5; }
+
+  .diplomat .card-head { background: #ecfdf5; }
+  .diplomat .card-type { color: #059669; }
+  .diplomat .card-badge { background: #a7f3d0; }
+  .diplomat .card-game  { background: #a7f3d0; }
+  .diplomat .btn.playing { background: #059669; border-color: #059669; }
+
+  .sentinel .card-head { background: #fef2f2; }
+  .sentinel .card-type { color: #dc2626; }
+  .sentinel .card-badge { background: #fecaca; }
+  .sentinel .card-game  { background: #fecaca; }
+  .sentinel .btn.playing { background: #dc2626; border-color: #dc2626; }
+
+  .explorer .card-head { background: #fffbeb; }
+  .explorer .card-type { color: #d97706; }
+  .explorer .card-badge { background: #fde68a; }
+  .explorer .card-game  { background: #fde68a; }
+  .explorer .btn.playing { background: #d97706; border-color: #d97706; }
+
+  /* ── MODAL ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0;
+    background: rgba(0,0,0,0.55); z-index: 100;
+    align-items: center; justify-content: center;
+    padding: 20px;
+  }
+  .modal-overlay.open { display: flex; }
+  .modal {
+    background: var(--white);
+    border: 2.5px solid var(--ink);
+    border-radius: 24px; max-width: 420px; width: 100%;
+    overflow: hidden; position: relative;
+    animation: modalIn 0.2s ease;
+  }
+  @keyframes modalIn { from { transform: scale(0.92) translateY(12px); opacity:0; } to { transform: none; opacity:1; } }
+
+  .modal-head { padding: 24px 28px 20px; border-bottom: 2px solid var(--ink); position: relative; }
+  .modal-close {
+    position: absolute; top: 16px; right: 16px;
+    width: 32px; height: 32px; border-radius: 50%;
+    border: 2px solid var(--ink); background: var(--white);
+    cursor: pointer; font-size: 16px; display: flex; align-items: center; justify-content: center;
+    transition: background 0.15s;
+  }
+  .modal-close:hover { background: var(--ink); color: #fff; }
+  .modal-num { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--ink-muted); margin-bottom: 4px; }
+  .modal-type { font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 4px; line-height: 1; }
+  .modal-name { font-family: 'Black Han Sans', sans-serif; font-size: 15px; color: var(--ink-soft); margin-top: 6px; }
+
+  .modal-body { padding: 20px 28px 24px; }
+  .modal-desc { font-size: 13px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 20px; }
+
+  .modal-section { margin-bottom: 16px; }
+  .modal-section-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 2px;
+    color: var(--ink-muted); margin-bottom: 8px; text-transform: uppercase;
+  }
+
+  .audio-row {
+    display: flex; align-items: center; gap: 10px;
+    background: var(--bg); border-radius: 10px;
+    border: 2px solid var(--ink); padding: 10px 14px;
+    margin-bottom: 8px;
+  }
+  .audio-play-btn {
+    width: 34px; height: 34px; border-radius: 50%;
+    border: 2px solid var(--ink); background: var(--white);
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    font-size: 14px; flex-shrink: 0; transition: background 0.15s;
+  }
+  .audio-play-btn:hover, .audio-play-btn.active { background: var(--ink); color: #fff; }
+  .audio-label { font-size: 12px; font-weight: 700; flex: 1; }
+  .audio-duration { font-size: 11px; color: var(--ink-muted); font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
+
+  .progress-bar {
+    width: 100%; height: 4px; background: #e5e7eb;
+    border-radius: 2px; margin-top: 6px; overflow: hidden;
+  }
+  .progress-fill {
+    height: 100%; width: 0%; border-radius: 2px;
+    transition: width 0.1s linear;
+  }
+
+  .modal-dl-btn {
+    display: flex; align-items: center; justify-content: center; gap: 8px;
+    width: 100%; padding: 12px;
+    border-radius: 12px; border: 2px solid var(--ink);
+    background: var(--white); color: var(--ink);
+    font-size: 13px; font-weight: 700; cursor: pointer;
+    text-decoration: none; transition: background 0.15s, color 0.15s;
+  }
+  .modal-dl-btn:hover { background: var(--ink); color: #fff; }
+
+  /* ── FOOTER ── */
+  .footer {
+    text-align: center; margin-top: 64px;
+    font-family: 'Bebas Neue', sans-serif; font-size: 12px;
+    letter-spacing: 4px; color: var(--ink-muted);
+  }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    body { padding: 40px 14px 60px; }
+    .grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+    .card-head { padding: 14px 14px 12px; }
+    .card-body { padding: 12px 14px 12px; }
+    .card-actions { padding: 0 14px 14px; }
+    .card-type { font-size: 30px; }
+    .card-badge { display: none; }
+  }
+  @media (max-width: 380px) { .grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-badge">ENGLISH CLASS ACTIVITY</div>
+  <h1 class="header-title">MBTI<br><span>활동 카드</span></h1>
+  <p class="header-sub">16 TYPES · 16 MISSIONS · 1 CLASS</p>
+</div>
+
+<div class="legend">
+  <div class="legend-chip active" data-filter="all"><div class="legend-dot" style="background:#111"></div>전체</div>
+  <div class="legend-chip" data-filter="analyst"><div class="legend-dot" style="background:#4f46e5"></div>분석가 NT</div>
+  <div class="legend-chip" data-filter="diplomat"><div class="legend-dot" style="background:#059669"></div>외교관 NF</div>
+  <div class="legend-chip" data-filter="sentinel"><div class="legend-dot" style="background:#dc2626"></div>관리자 SJ</div>
+  <div class="legend-chip" data-filter="explorer"><div class="legend-dot" style="background:#d97706"></div>탐험가 SP</div>
+</div>
+
+<div class="grid" id="cardGrid"></div>
+<div class="footer">MBTI ACTIVITY CARD SYSTEM · 16 TYPES</div>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal" id="modal">
+    <div class="modal-head" id="modalHead">
+      <button class="modal-close" id="modalClose">✕</button>
+      <div class="modal-num" id="modalNum"></div>
+      <div class="modal-type" id="modalType"></div>
+      <div class="modal-name" id="modalName"></div>
+    </div>
+    <div class="modal-body">
+      <p class="modal-desc" id="modalDesc"></p>
+      <div class="modal-section">
+        <div class="modal-section-label">🎵 BGM</div>
+        <div class="audio-row" id="bgmRow">
+          <button class="audio-play-btn" id="bgmBtn">▶</button>
+          <div style="flex:1">
+            <div class="audio-label" id="bgmLabel">BGM</div>
+            <div class="progress-bar"><div class="progress-fill" id="bgmProgress"></div></div>
+          </div>
+          <div class="audio-duration" id="bgmDuration">--:--</div>
+        </div>
+        <div class="audio-row" id="instrRow" style="display:none">
+          <button class="audio-play-btn" id="instrBtn">▶</button>
+          <div style="flex:1">
+            <div class="audio-label">안내 음성</div>
+            <div class="progress-bar"><div class="progress-fill" id="instrProgress"></div></div>
+          </div>
+          <div class="audio-duration" id="instrDuration">--:--</div>
+        </div>
+      </div>
+      <div class="modal-section">
+        <div class="modal-section-label">📄 교구 다운로드</div>
+        <a class="modal-dl-btn" id="modalDlBtn" href="#" download>⬇ PDF 교구 다운로드</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const BASE = './';
+
+const cards = [
+  {id:1,type:"INTJ",group:"analyst",emoji:"🎯",name:"격파 미션 카드",goal:"단계형 전략 수업",quote:"Step 1 clear! Next mission!",game:"격파 뒤 단어 꺼내기",description:"단계별 미션을 완료하며 목표 어휘를 학습합니다. 각 스테이지를 클리어할 때마다 새로운 단어를 획득하는 전략형 수업입니다.",audio:{bgm:"assets/audio/격파-미션_BGM.mp3"},pdf:"assets/pdf/격파-미션.pdf"},
+  {id:2,type:"INTP",group:"analyst",emoji:"🧩",name:"Why vs Because 카드",goal:"질문-이유 구조",quote:"Why? → Because!",game:"Why team vs Because team",description:"질문과 이유를 구조화하여 영어 문장력을 키웁니다. Why팀과 Because팀으로 나눠 대화 구조를 반복 훈련합니다.",audio:{bgm:"assets/audio/Why-vs-Because_BGM.mp3"},pdf:"assets/pdf/Why-vs-Because.pdf"},
+  {id:3,type:"ENTJ",group:"analyst",emoji:"❗",name:"문장 부호 리더 카드",goal:"역할 기반 참여",quote:"This is a question!",game:"❗❓ 역할 팀 미션",description:"문장 부호를 역할로 배분하여 리더십과 참여를 동시에 훈련합니다.",audio:{bgm:"assets/audio/문장-부호-리더_BGM.mp3"},pdf:"assets/pdf/문장-부호-리더.pdf"},
+  {id:4,type:"ENTP",group:"analyst",emoji:"💡",name:"아인슈타인 카드",goal:"규칙 변화 & 창의성",quote:"Wait! I have an idea!",game:"CVC 릴레이 + 규칙 변경",description:"기존 규칙을 창의적으로 변형하며 언어 감각을 키웁니다.",audio:{bgm:"assets/audio/아인슈타인_BGM.mp3"},pdf:"assets/pdf/아인슈타인.pdf"},
+  {id:5,type:"INFJ",group:"diplomat",emoji:"🎬",name:"오스카상 카드",goal:"몰입 역할극",quote:"You are the main character!",game:"오스카상 역할 미션",description:"깊은 몰입과 감정 이입으로 역할극을 수행합니다.",audio:{bgm:"assets/audio/오스카상_BGM.mp3"},pdf:"assets/pdf/오스카상.pdf"},
+  {id:6,type:"INFP",group:"diplomat",emoji:"✨",name:"Copy Me 카드",goal:"창의 표현",quote:"Show me your way!",game:"단어 동작 만들기",description:"자신만의 창의적인 동작으로 단어를 표현하고 다른 학생들이 따라합니다.",audio:{bgm:"assets/audio/Copy-Me_BGM.mp3"},pdf:"assets/pdf/Copy-Me.pdf"},
+  {id:7,type:"ENFJ",group:"diplomat",emoji:"🤝",name:"마칭 팀워크 카드",goal:"협력 발화",quote:"Let's do it together!",game:"2인3각 / 5인6각",description:"팀원과 호흡을 맞춰 함께 발화하는 협력형 활동입니다.",audio:{bgm:"assets/audio/마칭-팀워크_BGM.mp3"},pdf:"assets/pdf/마칭-팀워크.pdf"},
+  {id:8,type:"ENFP",group:"diplomat",emoji:"🔥",name:"Better than Me 카드",goal:"에너지 확장",quote:"Better than me!",game:"리액션 업 챌린지",description:"점점 더 큰 에너지와 리액션으로 영어를 외치는 활동입니다.",audio:{bgm:"assets/audio/Better-than-Me_BGM.mp3"},pdf:"assets/pdf/Better-than-me.pdf"},
+  {id:9,type:"ISTJ",group:"sentinel",emoji:"🤫",name:"Whisper 카드",goal:"정확 전달",quote:"Listen carefully…",game:"Whisper and Say",description:"귓속말로 정확하게 단어를 전달하는 집중력 훈련 활동입니다.",audio:{bgm:"assets/audio/Whisper_BGM.mp3"},pdf:"assets/pdf/Whisper.pdf"},
+  {id:10,type:"ISFJ",group:"sentinel",emoji:"🌊",name:"중력 카드",goal:"속도 조절",quote:"Slow… slower…",game:"중력 vs 무중력",description:"중력(느린 발화)과 무중력(빠른 발화)을 번갈아 경험하며 발음과 리듬을 훈련합니다.",audio:{bgm:"assets/audio/중력_BGM.mp3"},pdf:"assets/pdf/중력.pdf"},
+  {id:11,type:"ESTJ",group:"sentinel",emoji:"📋",name:"룰 마스터 카드",goal:"규칙 & 통제",quote:"Follow the rules!",game:"군대 BGM 룰",description:"군대식 BGM에 맞춰 엄격한 규칙을 따르며 발화하는 훈련입니다.",audio:{bgm:"assets/audio/룰-마스터_BGM.mp3"},pdf:"assets/pdf/룰-마스터.pdf"},
+  {id:12,type:"ESFJ",group:"sentinel",emoji:"👏",name:"Good Job 카드",goal:"칭찬 & 분위기",quote:"Oh~ Oh~ Oh~ Good job!!",game:"박수 챈트",description:"박수와 챈트로 긍정적인 학습 분위기를 만드는 활동입니다.",audio:{bgm:"assets/audio/Good-Job_BGM.mp3"},pdf:"assets/pdf/Good-Job.pdf"},
+  {id:13,type:"ISTP",group:"explorer",emoji:"✋",name:"파트너 카드",goal:"촉각 체험",quote:"Feel and guess!",game:"손바닥 쓰기",description:"파트너의 손바닥에 단어를 써서 맞추는 촉각 활동입니다.",audio:{bgm:"assets/audio/파트너_BGM.mp3"},pdf:"assets/pdf/파트너.pdf"},
+  {id:14,type:"ISFP",group:"explorer",emoji:"🎵",name:"감정선 카드",goal:"감정 표현",quote:"Feel it and move!",game:"선 따라 이동",description:"감정의 흐름에 따라 공간을 이동하며 영어를 발화하는 활동입니다.",audio:{bgm:"assets/audio/감정선_BGM.mp3"},pdf:"assets/pdf/감정선.pdf"},
+  {id:15,type:"ESTP",group:"explorer",emoji:"🏁",name:"레이스 카드",goal:"속도 경쟁",quote:"Go! Go! Friend!!",game:"발화 후 레이스",description:"영어 문장을 정확히 발화한 뒤 달려가는 스피드 대결입니다.",audio:{bgm:"assets/audio/레이스_BGM.mp3"},pdf:"assets/pdf/레이스.pdf"},
+  {id:16,type:"ESFP",group:"explorer",emoji:"🎉",name:"세레모니 카드",goal:"퍼포먼스",quote:"Show your moment!",game:"골 세레모니",description:"영어 발화 성공 후 자신만의 골 세레모니를 펼치는 퍼포먼스 활동입니다.",audio:{bgm:"assets/audio/세레모니_BGM.mp3"},pdf:"assets/pdf/세레모니.pdf"},
+];
+
+const groupLabel = {analyst:"분석가 NT",diplomat:"외교관 NF",sentinel:"관리자 SJ",explorer:"탐험가 SP"};
+
+// ── BUILD GRID ──
+const grid = document.getElementById('cardGrid');
+cards.forEach(c => {
+  const el = document.createElement('div');
+  el.className = `card ${c.group}`;
+  el.dataset.group = c.group;
+  el.innerHTML = `
+    <div class="card-head">
+      <div class="card-num">NO.${String(c.id).padStart(2,'0')} · ${groupLabel[c.group]}</div>
+      <div class="card-type">${c.type}</div>
+      <div class="card-name">${c.name}</div>
+      <div class="card-badge">${c.emoji}</div>
+    </div>
+    <div class="card-body">
+      <div class="card-goal">🎯 ${c.goal}</div>
+      <div class="card-quote">${c.quote}</div>
+      <div class="card-game">🎮 ${c.game}</div>
+    </div>
+    <div class="card-actions">
+      <button class="btn" onclick="openModal(${c.id}, event)">🎵 음원 듣기</button>
+      <a class="btn" href="${c.pdf}" download onclick="event.stopPropagation()">⬇ 교구</a>
+    </div>
+    <div class="card-watermark">${c.id}</div>
+  `;
+  el.addEventListener('click', () => openModal(c.id));
+  grid.appendChild(el);
+});
+
+// ── FILTER ──
+document.querySelectorAll('.legend-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.legend-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    const f = chip.dataset.filter;
+    document.querySelectorAll('.card').forEach(card => {
+      card.classList.toggle('hidden', f !== 'all' && card.dataset.group !== f);
+    });
+  });
+});
+
+// ── AUDIO STATE ──
+let bgmAudio = null, instrAudio = null;
+let bgmInterval = null, instrInterval = null;
+
+function fmtTime(s) {
+  if (!s || isNaN(s)) return '--:--';
+  const m = Math.floor(s/60), sec = Math.floor(s%60);
+  return `${m}:${sec.toString().padStart(2,'0')}`;
+}
+
+function setupAudio(audioEl, btn, progressEl, durationEl) {
+  audioEl.addEventListener('loadedmetadata', () => {
+    durationEl.textContent = fmtTime(audioEl.duration);
+  });
+  audioEl.addEventListener('timeupdate', () => {
+    if (audioEl.duration) {
+      progressEl.style.width = (audioEl.currentTime / audioEl.duration * 100) + '%';
+    }
+  });
+  audioEl.addEventListener('ended', () => {
+    btn.textContent = '▶';
+    btn.classList.remove('active');
+    progressEl.style.width = '0%';
+  });
+  btn.addEventListener('click', e => {
+    e.stopPropagation();
+    if (audioEl.paused) {
+      // stop other
+      if (audioEl === bgmAudio && instrAudio && !instrAudio.paused) { instrAudio.pause(); instrBtn.textContent='▶'; instrBtn.classList.remove('active'); }
+      if (audioEl === instrAudio && bgmAudio && !bgmAudio.paused) { bgmAudio.pause(); bgmBtn.textContent='▶'; bgmBtn.classList.remove('active'); }
+      audioEl.play();
+      btn.textContent = '⏸';
+      btn.classList.add('active');
+    } else {
+      audioEl.pause();
+      btn.textContent = '▶';
+      btn.classList.remove('active');
+    }
+  });
+}
+
+// ── MODAL ──
+const overlay = document.getElementById('modalOverlay');
+const modal   = document.getElementById('modal');
+const bgmBtn  = document.getElementById('bgmBtn');
+const instrBtn= document.getElementById('instrBtn');
+
+let currentCard = null;
+
+function openModal(id, e) {
+  if (e) e.stopPropagation();
+  const c = cards.find(x => x.id === id);
+  if (!c) return;
+  currentCard = c;
+
+  // stop any playing
+  if (bgmAudio)   { bgmAudio.pause(); bgmAudio.src = ''; }
+  if (instrAudio) { instrAudio.pause(); instrAudio.src = ''; }
+  bgmBtn.textContent = '▶'; bgmBtn.classList.remove('active');
+  instrBtn.textContent = '▶'; instrBtn.classList.remove('active');
+  document.getElementById('bgmProgress').style.width = '0%';
+  document.getElementById('instrProgress').style.width = '0%';
+  document.getElementById('bgmDuration').textContent = '--:--';
+  document.getElementById('instrDuration').textContent = '--:--';
+
+  // populate
+  const colors = {analyst:'#4f46e5',diplomat:'#059669',sentinel:'#dc2626',explorer:'#d97706'};
+  const bgs    = {analyst:'#eef2ff',diplomat:'#ecfdf5',sentinel:'#fef2f2',explorer:'#fffbeb'};
+  document.getElementById('modalHead').style.background = bgs[c.group];
+  document.getElementById('modalNum').textContent = `NO.${String(c.id).padStart(2,'0')} · ${groupLabel[c.group]}`;
+  document.getElementById('modalType').textContent = c.type;
+  document.getElementById('modalType').style.color = colors[c.group];
+  document.getElementById('modalName').textContent = c.name;
+  document.getElementById('modalDesc').textContent = c.description;
+  document.getElementById('bgmLabel').textContent = `BGM — ${c.name}`;
+  document.getElementById('modalDlBtn').href = c.pdf;
+  document.getElementById('modalDlBtn').download = `${c.type}_card.pdf`;
+
+  // color progress bars
+  document.getElementById('bgmProgress').style.background = colors[c.group];
+  document.getElementById('instrProgress').style.background = colors[c.group];
+
+  // setup audio
+  bgmAudio = new Audio(c.audio.bgm);
+  instrAudio = new Audio(c.audio.instruction);
+  setupAudio(bgmAudio, bgmBtn, document.getElementById('bgmProgress'), document.getElementById('bgmDuration'));
+  setupAudio(instrAudio, instrBtn, document.getElementById('instrProgress'), document.getElementById('instrDuration'));
+
+  overlay.classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  if (bgmAudio)   { bgmAudio.pause(); bgmAudio.src = ''; }
+  if (instrAudio) { instrAudio.pause(); instrAudio.src = ''; }
+  overlay.classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.getElementById('modalClose').addEventListener('click', closeModal);
+overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+</script>
+</body>
+</html>
