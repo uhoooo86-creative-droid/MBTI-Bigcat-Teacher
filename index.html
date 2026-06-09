@@ -290,7 +290,7 @@
           </div>
           <div class="audio-duration" id="bgmDuration">--:--</div>
         </div>
-        <div class="audio-row" id="instrRow" style="display:none">
+        <div class="audio-row" id="instrRow">
           <button class="audio-play-btn" id="instrBtn">▶</button>
           <div style="flex:1">
             <div class="audio-label">안내 음성</div>
@@ -311,22 +311,22 @@
 const BASE = './';
 
 const cards = [
-  {id:1,type:"INTJ",group:"analyst",emoji:"🎯",name:"격파 미션 카드",goal:"단계형 전략 수업",quote:"Step 1 clear! Next mission!",game:"격파 뒤 단어 꺼내기",description:"단계별 미션을 완료하며 목표 어휘를 학습합니다. 각 스테이지를 클리어할 때마다 새로운 단어를 획득하는 전략형 수업입니다.",audio:{bgm:"assets/audio/격파-미션_BGM.mp3"},pdf:"assets/pdf/격파-미션.pdf"},
-  {id:2,type:"INTP",group:"analyst",emoji:"🧩",name:"Why vs Because 카드",goal:"질문-이유 구조",quote:"Why? → Because!",game:"Why team vs Because team",description:"질문과 이유를 구조화하여 영어 문장력을 키웁니다. Why팀과 Because팀으로 나눠 대화 구조를 반복 훈련합니다.",audio:{bgm:"assets/audio/Why-vs-Because_BGM.mp3"},pdf:"assets/pdf/Why-vs-Because.pdf"},
-  {id:3,type:"ENTJ",group:"analyst",emoji:"❗",name:"문장 부호 리더 카드",goal:"역할 기반 참여",quote:"This is a question!",game:"❗❓ 역할 팀 미션",description:"문장 부호를 역할로 배분하여 리더십과 참여를 동시에 훈련합니다.",audio:{bgm:"assets/audio/문장-부호-리더_BGM.mp3"},pdf:"assets/pdf/문장-부호-리더.pdf"},
-  {id:4,type:"ENTP",group:"analyst",emoji:"💡",name:"아인슈타인 카드",goal:"규칙 변화 & 창의성",quote:"Wait! I have an idea!",game:"CVC 릴레이 + 규칙 변경",description:"기존 규칙을 창의적으로 변형하며 언어 감각을 키웁니다.",audio:{bgm:"assets/audio/아인슈타인_BGM.mp3"},pdf:"assets/pdf/아인슈타인.pdf"},
-  {id:5,type:"INFJ",group:"diplomat",emoji:"🎬",name:"오스카상 카드",goal:"몰입 역할극",quote:"You are the main character!",game:"오스카상 역할 미션",description:"깊은 몰입과 감정 이입으로 역할극을 수행합니다.",audio:{bgm:"assets/audio/오스카상_BGM.mp3"},pdf:"assets/pdf/오스카상.pdf"},
-  {id:6,type:"INFP",group:"diplomat",emoji:"✨",name:"Copy Me 카드",goal:"창의 표현",quote:"Show me your way!",game:"단어 동작 만들기",description:"자신만의 창의적인 동작으로 단어를 표현하고 다른 학생들이 따라합니다.",audio:{bgm:"assets/audio/Copy-Me_BGM.mp3"},pdf:"assets/pdf/Copy-Me.pdf"},
-  {id:7,type:"ENFJ",group:"diplomat",emoji:"🤝",name:"마칭 팀워크 카드",goal:"협력 발화",quote:"Let's do it together!",game:"2인3각 / 5인6각",description:"팀원과 호흡을 맞춰 함께 발화하는 협력형 활동입니다.",audio:{bgm:"assets/audio/마칭-팀워크_BGM.mp3"},pdf:"assets/pdf/마칭-팀워크.pdf"},
-  {id:8,type:"ENFP",group:"diplomat",emoji:"🔥",name:"Better than Me 카드",goal:"에너지 확장",quote:"Better than me!",game:"리액션 업 챌린지",description:"점점 더 큰 에너지와 리액션으로 영어를 외치는 활동입니다.",audio:{bgm:"assets/audio/Better-than-Me_BGM.mp3"},pdf:"assets/pdf/Better-than-me.pdf"},
-  {id:9,type:"ISTJ",group:"sentinel",emoji:"🤫",name:"Whisper 카드",goal:"정확 전달",quote:"Listen carefully…",game:"Whisper and Say",description:"귓속말로 정확하게 단어를 전달하는 집중력 훈련 활동입니다.",audio:{bgm:"assets/audio/Whisper_BGM.mp3"},pdf:"assets/pdf/Whisper.pdf"},
-  {id:10,type:"ISFJ",group:"sentinel",emoji:"🌊",name:"중력 카드",goal:"속도 조절",quote:"Slow… slower…",game:"중력 vs 무중력",description:"중력(느린 발화)과 무중력(빠른 발화)을 번갈아 경험하며 발음과 리듬을 훈련합니다.",audio:{bgm:"assets/audio/중력_BGM.mp3"},pdf:"assets/pdf/중력.pdf"},
-  {id:11,type:"ESTJ",group:"sentinel",emoji:"📋",name:"룰 마스터 카드",goal:"규칙 & 통제",quote:"Follow the rules!",game:"군대 BGM 룰",description:"군대식 BGM에 맞춰 엄격한 규칙을 따르며 발화하는 훈련입니다.",audio:{bgm:"assets/audio/룰-마스터_BGM.mp3"},pdf:"assets/pdf/룰-마스터.pdf"},
-  {id:12,type:"ESFJ",group:"sentinel",emoji:"👏",name:"Good Job 카드",goal:"칭찬 & 분위기",quote:"Oh~ Oh~ Oh~ Good job!!",game:"박수 챈트",description:"박수와 챈트로 긍정적인 학습 분위기를 만드는 활동입니다.",audio:{bgm:"assets/audio/Good-Job_BGM.mp3"},pdf:"assets/pdf/Good-Job.pdf"},
-  {id:13,type:"ISTP",group:"explorer",emoji:"✋",name:"파트너 카드",goal:"촉각 체험",quote:"Feel and guess!",game:"손바닥 쓰기",description:"파트너의 손바닥에 단어를 써서 맞추는 촉각 활동입니다.",audio:{bgm:"assets/audio/파트너_BGM.mp3"},pdf:"assets/pdf/파트너.pdf"},
-  {id:14,type:"ISFP",group:"explorer",emoji:"🎵",name:"감정선 카드",goal:"감정 표현",quote:"Feel it and move!",game:"선 따라 이동",description:"감정의 흐름에 따라 공간을 이동하며 영어를 발화하는 활동입니다.",audio:{bgm:"assets/audio/감정선_BGM.mp3"},pdf:"assets/pdf/감정선.pdf"},
-  {id:15,type:"ESTP",group:"explorer",emoji:"🏁",name:"레이스 카드",goal:"속도 경쟁",quote:"Go! Go! Friend!!",game:"발화 후 레이스",description:"영어 문장을 정확히 발화한 뒤 달려가는 스피드 대결입니다.",audio:{bgm:"assets/audio/레이스_BGM.mp3"},pdf:"assets/pdf/레이스.pdf"},
-  {id:16,type:"ESFP",group:"explorer",emoji:"🎉",name:"세레모니 카드",goal:"퍼포먼스",quote:"Show your moment!",game:"골 세레모니",description:"영어 발화 성공 후 자신만의 골 세레모니를 펼치는 퍼포먼스 활동입니다.",audio:{bgm:"assets/audio/세레모니_BGM.mp3"},pdf:"assets/pdf/세레모니.pdf"},
+  {id:1, type:"INTJ",group:"analyst", emoji:"🎯",name:"격파 미션 카드",      goal:"단계형 전략 수업",  quote:"Step 1 clear! Next mission!", game:"격파 뒤 단어 꺼내기",    description:"단계별 미션을 완료하며 목표 어휘를 학습합니다.",                                                             audio:"assets/audio/Mission-Breaker_BGM.mp3",               pdf:"assets/pdf/Mission-Breaker.pdf"},
+  {id:2, type:"INTP",group:"analyst", emoji:"🧩",name:"Why vs Because 카드",goal:"질문-이유 구조",    quote:"Why? → Because!",            game:"Why team vs Because team",description:"묻고 답하며 친구와 상호작용합니다.",                                                                          audio:"assets/audio/Why-vs-Because_BGM.mp3",                pdf:"assets/pdf/Why-vs-Because.pdf"},
+  {id:3, type:"ENTJ",group:"analyst", emoji:"❗", name:"문장 부호 리더 카드",goal:"역할 기반 참여",   quote:"This is a question!",        game:"❗❓ 역할 팀 미션",         description:"문장 부호를 역할로 정하여 문장을 완성합니다.",                                                                audio:"assets/audio/Punctuation-Leader_BGM.mp3",            pdf:"assets/pdf/Punctuation-Leader.pdf"},
+  {id:4, type:"ENTP",group:"analyst", emoji:"💡",name:"아인슈타인 카드",      goal:"규칙 변화 & 창의성",quote:"Wait! I have an idea!",       game:"CVC 릴레이 + 규칙 변경",  description:"Go & Stop, 허수아비와 같은 형식으로 게임을 통해 어휘를 자연스럽게 익힙니다.",                                audio:"assets/audio/Einstein_BGM.mp3",                      pdf:"assets/pdf/Einstein.pdf"},
+  {id:5, type:"INFJ",group:"diplomat",emoji:"🎬",name:"오스카상 카드",        goal:"몰입 역할극",       quote:"You are the main character!",game:"오스카상 역할 미션",       description:"목표 문장에 감정을 넣어 자연스럽게 표현합니다.",                                                              audio:"assets/audio/Oscar_BGM.mp3",                         pdf:"assets/pdf/Oscar.pdf"},
+  {id:6, type:"INFP",group:"diplomat",emoji:"✨",name:"Copy Me 카드",          goal:"창의 표현",         quote:"Show me your way!",          game:"단어 동작 만들기",          description:"다양한 동물을 따라 표현해보고 자신만의 동작으로 표현하기도 하고 친구들의 동작을 따라합니다.",              audio:"assets/audio/Copy-Me_BGM.mp3",                       pdf:"assets/pdf/Copy-Me.pdf"},
+  {id:7, type:"ENFJ",group:"diplomat",emoji:"🤝",name:"마칭 팀워크 카드",      goal:"협력 발화",         quote:"Let's do it together!",      game:"2인3각 / 5인6각",           description:"팀원과 호흡을 맞춰 함께 발화하며 이동하는 협력형 활동입니다.",                                               audio:"assets/audio/Line_Up_Teamwork_BGM.mp3",              pdf:"assets/pdf/Line_Up_Teamwork.pdf"},
+  {id:8, type:"ENFP",group:"diplomat",emoji:"🔥",name:"Better than Me 카드",  goal:"에너지 확장",        quote:"Better than me!",            game:"리액션 업 챌린지",          description:"가위바위보를 한 뒤 이긴 유아가 선택한 동작카드를 보고 목표어휘를 모두 외친 뒤 동일한 포즈를 취합니다.", audio:"assets/audio/Rock-Scissor-Paper-GoogooGaga_BGM.mp3", pdf:"assets/pdf/Rock-Scissor-Paper-GoogooGaga.pdf"},
+  {id:9, type:"ISTJ",group:"sentinel",emoji:"🤫",name:"Whisper 카드",          goal:"정확 전달",          quote:"Listen carefully…",          game:"Whisper and Say",          description:"귓속말로 정확하게 단어를 전달하는 집중력 훈련입니다.",                                                       audio:"assets/audio/Whisper_BGM.mp3",                       pdf:"assets/pdf/Whisper.pdf"},
+  {id:10,type:"ISFJ",group:"sentinel",emoji:"🌊",name:"중력 카드",             goal:"속도 조절",          quote:"Slow… slower…",              game:"중력 vs 무중력",            description:"중력과 무중력을 번갈아 경험하며 발음 리듬을 훈련합니다.",                                                   audio:"assets/audio/Gravity_BGM.mp3",                       pdf:"assets/pdf/Gravity.pdf"},
+  {id:11,type:"ESTJ",group:"sentinel",emoji:"📋",name:"룰 마스터 카드",        goal:"규칙 & 통제",        quote:"Boss says!",                  game:"Push the Button",          description:"버튼을 활용하여 방향, 신체 관련 어휘를 익힙니다.",                                                          audio:"assets/audio/Button-Master_BGM.mp3",                 pdf:"assets/pdf/Button-Master.pdf"},
+  {id:12,type:"ESFJ",group:"sentinel",emoji:"👏",name:"Good Job 카드",         goal:"칭찬 & 분위기",      quote:"Oh~ Oh~ Oh~ Good job!!",      game:"박수 챈트",                 description:"서로 칭찬과 응원해주며 긍정적인 상호작용을 합니다.",                                                       audio:"assets/audio/Good-Job_BGM.mp3",                      pdf:"assets/pdf/Good-Job.pdf"},
+  {id:13,type:"ISTP",group:"explorer",emoji:"✋",name:"파트너 카드",           goal:"촉각 체험",          quote:"Feel and guess!",            game:"손바닥 쓰기",               description:"파트너 손바닥에 단어를 써서 맞추는 촉각 활동입니다.",                                                     audio:"assets/audio/Patner-Feel and guess_BGM.mp3",         pdf:"assets/pdf/Patner-Feel and guess.pdf"},
+  {id:14,type:"ISFP",group:"explorer",emoji:"🎵",name:"감정선 카드",           goal:"감정 표현",          quote:"Feel it and move!",          game:"선 따라 이동",              description:"감정의 흐름에 따라 공간을 이동하며 발화하는 활동입니다.",                                                 audio:"assets/audio/Emotion-Doodle_BGM.mp3",                pdf:"assets/pdf/Emotion-Doodle.pdf"},
+  {id:15,type:"ESTP",group:"explorer",emoji:"🏁",name:"레이스 카드",           goal:"속도 경쟁",          quote:"Ready, Set, Go!!",            game:"발화 후 레이스",            description:"CVC활동, 한 글자 혹은 어절씩 번갈아가며 발화하는 게임활동입니다.",                                         audio:"assets/audio/Word-Race_BGM.mp3",                     pdf:"assets/pdf/Word-Race.pdf"},
+  {id:16,type:"ESFP",group:"explorer",emoji:"🎉",name:"세레모니 카드",         goal:"퍼포먼스",            quote:"Show your moment!",          game:"골 세레모니",               description:"발화 성공 후 자신만의 골 세레모니를 펼치는 활동입니다.",                                                  audio:"assets/audio/Ceremony_BGM.mp3",                      pdf:"assets/pdf/Ceremony.pdf"},
 ];
 
 const groupLabel = {analyst:"분석가 NT",diplomat:"외교관 NF",sentinel:"관리자 SJ",explorer:"탐험가 SP"};
@@ -454,10 +454,10 @@ function openModal(id, e) {
   document.getElementById('instrProgress').style.background = colors[c.group];
 
   // setup audio
-  bgmAudio = new Audio(c.audio.bgm);
-  instrAudio = new Audio(c.audio.instruction);
+  bgmAudio = new Audio(c.audio);
+  instrAudio = null;
+  document.getElementById('instrRow').style.display = 'none';
   setupAudio(bgmAudio, bgmBtn, document.getElementById('bgmProgress'), document.getElementById('bgmDuration'));
-  setupAudio(instrAudio, instrBtn, document.getElementById('instrProgress'), document.getElementById('instrDuration'));
 
   overlay.classList.add('open');
   document.body.style.overflow = 'hidden';
