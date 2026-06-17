@@ -21,8 +21,6 @@
     min-height: 100vh;
     padding: 64px 32px 80px;
   }
-
-  /* ── HEADER ── */
   .header { text-align: center; margin-bottom: 16px; }
   .header-badge {
     display: inline-block;
@@ -43,8 +41,6 @@
     padding: 0 12px 4px; border-radius: 8px;
   }
   .header-sub { font-size: 13px; color: var(--ink-muted); letter-spacing: 2px; margin-bottom: 48px; }
-
-  /* ── LEGEND ── */
   .legend { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-bottom: 52px; }
   .legend-chip {
     display: flex; align-items: center; gap: 7px;
@@ -56,15 +52,11 @@
   .legend-chip:hover { background: var(--ink); color: #fff; }
   .legend-chip.active { background: var(--ink); color: #fff; }
   .legend-dot { width: 9px; height: 9px; border-radius: 50%; flex-shrink: 0; }
-
-  /* ── GRID ── */
   .grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
     gap: 18px; max-width: 1300px; margin: 0 auto;
   }
-
-  /* ── CARD ── */
   .card {
     background: var(--white);
     border: 2.5px solid var(--ink);
@@ -78,7 +70,6 @@
     box-shadow: 6px 10px 0 var(--ink);
   }
   .card.hidden { display: none; }
-
   .card-head {
     padding: 18px 22px 16px;
     border-bottom: 2.5px solid var(--ink);
@@ -93,7 +84,6 @@
     border: 2px solid var(--ink);
     display: flex; align-items: center; justify-content: center; font-size: 20px;
   }
-
   .card-body { padding: 16px 22px 16px; }
   .card-goal { display: flex; align-items: center; gap: 7px; font-size: 12px; font-weight: 700; color: var(--ink-soft); margin-bottom: 11px; }
   .card-quote {
@@ -107,8 +97,6 @@
     border-radius: 30px; padding: 5px 12px;
     border: 2px solid var(--ink);
   }
-
-  /* ── CARD ACTIONS ── */
   .card-actions {
     display: flex; gap: 8px;
     padding: 0 22px 18px;
@@ -124,39 +112,31 @@
   }
   .btn:hover { background: var(--ink); color: #fff; }
   .btn.playing { color: #fff; }
-
   .card-watermark {
     position: absolute; bottom: -4px; right: 14px;
     font-family: 'Bebas Neue', sans-serif; font-size: 80px; line-height: 1;
     opacity: 0.05; pointer-events: none; user-select: none; color: var(--ink);
   }
-
-  /* group theming */
   .analyst  .card-head { background: #eef2ff; }
   .analyst  .card-type { color: #4f46e5; }
   .analyst  .card-badge { background: #c7d2fe; }
   .analyst  .card-game  { background: #c7d2fe; }
   .analyst  .btn.playing { background: #4f46e5; border-color: #4f46e5; }
-
   .diplomat .card-head { background: #ecfdf5; }
   .diplomat .card-type { color: #059669; }
   .diplomat .card-badge { background: #a7f3d0; }
   .diplomat .card-game  { background: #a7f3d0; }
   .diplomat .btn.playing { background: #059669; border-color: #059669; }
-
   .sentinel .card-head { background: #fef2f2; }
   .sentinel .card-type { color: #dc2626; }
   .sentinel .card-badge { background: #fecaca; }
   .sentinel .card-game  { background: #fecaca; }
   .sentinel .btn.playing { background: #dc2626; border-color: #dc2626; }
-
   .explorer .card-head { background: #fffbeb; }
   .explorer .card-type { color: #d97706; }
   .explorer .card-badge { background: #fde68a; }
   .explorer .card-game  { background: #fde68a; }
   .explorer .btn.playing { background: #d97706; border-color: #d97706; }
-
-  /* ── MODAL ── */
   .modal-overlay {
     display: none; position: fixed; inset: 0;
     background: rgba(0,0,0,0.55); z-index: 100;
@@ -172,7 +152,6 @@
     animation: modalIn 0.2s ease;
   }
   @keyframes modalIn { from { transform: scale(0.92) translateY(12px); opacity:0; } to { transform: none; opacity:1; } }
-
   .modal-head { padding: 24px 28px 20px; border-bottom: 2px solid var(--ink); position: relative; }
   .modal-close {
     position: absolute; top: 16px; right: 16px;
@@ -185,16 +164,13 @@
   .modal-num { font-family: 'Bebas Neue', sans-serif; font-size: 11px; letter-spacing: 3px; color: var(--ink-muted); margin-bottom: 4px; }
   .modal-type { font-family: 'Bebas Neue', sans-serif; font-size: 52px; letter-spacing: 4px; line-height: 1; }
   .modal-name { font-family: 'Black Han Sans', sans-serif; font-size: 15px; color: var(--ink-soft); margin-top: 6px; }
-
   .modal-body { padding: 20px 28px 24px; }
   .modal-desc { font-size: 13px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 20px; }
-
   .modal-section { margin-bottom: 16px; }
   .modal-section-label {
     font-size: 10px; font-weight: 700; letter-spacing: 2px;
     color: var(--ink-muted); margin-bottom: 8px; text-transform: uppercase;
   }
-
   .audio-row {
     display: flex; align-items: center; gap: 10px;
     background: var(--bg); border-radius: 10px;
@@ -210,7 +186,6 @@
   .audio-play-btn:hover, .audio-play-btn.active { background: var(--ink); color: #fff; }
   .audio-label { font-size: 12px; font-weight: 700; flex: 1; }
   .audio-duration { font-size: 11px; color: var(--ink-muted); font-family: 'Bebas Neue', sans-serif; letter-spacing: 1px; }
-
   .progress-bar {
     width: 100%; height: 4px; background: #e5e7eb;
     border-radius: 2px; margin-top: 6px; overflow: hidden;
@@ -219,7 +194,6 @@
     height: 100%; width: 0%; border-radius: 2px;
     transition: width 0.1s linear;
   }
-
   .modal-dl-btn {
     display: flex; align-items: center; justify-content: center; gap: 8px;
     width: 100%; padding: 12px;
@@ -229,15 +203,11 @@
     text-decoration: none; transition: background 0.15s, color 0.15s;
   }
   .modal-dl-btn:hover { background: var(--ink); color: #fff; }
-
-  /* ── FOOTER ── */
   .footer {
     text-align: center; margin-top: 64px;
     font-family: 'Bebas Neue', sans-serif; font-size: 12px;
     letter-spacing: 4px; color: var(--ink-muted);
   }
-
-  /* ── RESPONSIVE ── */
   @media (max-width: 600px) {
     body { padding: 40px 14px 60px; }
     .grid { grid-template-columns: 1fr 1fr; gap: 12px; }
@@ -269,7 +239,6 @@
 <div class="grid" id="cardGrid"></div>
 <div class="footer">MBTI ACTIVITY CARD SYSTEM · 16 TYPES</div>
 
-<!-- MODAL -->
 <div class="modal-overlay" id="modalOverlay">
   <div class="modal" id="modal">
     <div class="modal-head" id="modalHead">
@@ -323,7 +292,7 @@ const cards = [
   {id:10,type:"ISFJ",group:"sentinel",emoji:"🌊",name:"중력 카드",             goal:"속도 조절",          quote:"Slow… slower…",              game:"중력 vs 무중력",            description:"중력과 무중력을 번갈아 경험하며 발음 리듬을 훈련합니다.",                                                   audio:"assets/audio/Gravity_BGM.mp3",                       pdf:"assets/pdf/Gravity.pdf"},
   {id:11,type:"ESTJ",group:"sentinel",emoji:"📋",name:"룰 마스터 카드",        goal:"규칙 & 통제",        quote:"Boss says!",                  game:"Push the Button",          description:"버튼을 활용하여 방향, 신체 관련 어휘를 익힙니다.",                                                          audio:"assets/audio/Button-Master_BGM.mp3",                 pdf:"assets/pdf/Button-Master.pdf"},
   {id:12,type:"ESFJ",group:"sentinel",emoji:"👏",name:"Good Job 카드",         goal:"칭찬 & 분위기",      quote:"Oh~ Oh~ Oh~ Good job!!",      game:"박수 챈트",                 description:"서로 칭찬과 응원해주며 긍정적인 상호작용을 합니다.",                                                       audio:"assets/audio/Good-Job_BGM.mp3",                      pdf:"assets/pdf/Good-Job.pdf"},
-  {id:13,type:"ISTP",group:"explorer",emoji:"✋",name:"파트너 카드",           goal:"촉각 체험",          quote:"Feel and guess!",            game:"손바닥 쓰기",               description:"파트너 손바닥에 단어를 써서 맞추는 촉각 활동입니다.",                                                     audio:"assets/audio/Patner-Feel and guess_BGM.mp3",         pdf:"assets/pdf/Patner-Feel and guess.pdf"},
+  {id:13,type:"ISTP",group:"explorer",emoji:"✋",name:"파트너 카드",           goal:"촉각 체험",          quote:"Feel and guess!",            game:"손바닥 쓰기",               description:"파트너 손바닥에 단어를 써서 맞추는 촉각 활동입니다.",                                                     audio:"assets/audio/Patner-Feel and guess_BGM.mp3",         pdf:"assets/pdf/Partner-Feel_and_guess.pdf"},
   {id:14,type:"ISFP",group:"explorer",emoji:"🎵",name:"감정선 카드",           goal:"감정 표현",          quote:"Feel it and move!",          game:"선 따라 이동",              description:"감정의 흐름에 따라 공간을 이동하며 발화하는 활동입니다.",                                                 audio:"assets/audio/Emotion-Doodle_BGM.mp3",                pdf:"assets/pdf/Emotion-Doodle.pdf"},
   {id:15,type:"ESTP",group:"explorer",emoji:"🏁",name:"레이스 카드",           goal:"속도 경쟁",          quote:"Ready, Set, Go!!",            game:"발화 후 레이스",            description:"CVC활동, 한 글자 혹은 어절씩 번갈아가며 발화하는 게임활동입니다.",                                         audio:"assets/audio/Word-Race_BGM.mp3",                     pdf:"assets/pdf/Word-Race.pdf"},
   {id:16,type:"ESFP",group:"explorer",emoji:"🎉",name:"세레모니 카드",         goal:"퍼포먼스",            quote:"Show your moment!",          game:"골 세레모니",               description:"발화 성공 후 자신만의 골 세레모니를 펼치는 활동입니다.",                                                  audio:"assets/audio/Ceremony_BGM.mp3",                      pdf:"assets/pdf/Ceremony.pdf"},
@@ -331,7 +300,6 @@ const cards = [
 
 const groupLabel = {analyst:"분석가 NT",diplomat:"외교관 NF",sentinel:"관리자 SJ",explorer:"탐험가 SP"};
 
-// ── BUILD GRID ──
 const grid = document.getElementById('cardGrid');
 cards.forEach(c => {
   const el = document.createElement('div');
@@ -359,7 +327,6 @@ cards.forEach(c => {
   grid.appendChild(el);
 });
 
-// ── FILTER ──
 document.querySelectorAll('.legend-chip').forEach(chip => {
   chip.addEventListener('click', () => {
     document.querySelectorAll('.legend-chip').forEach(c => c.classList.remove('active'));
@@ -371,9 +338,7 @@ document.querySelectorAll('.legend-chip').forEach(chip => {
   });
 });
 
-// ── AUDIO STATE ──
 let bgmAudio = null, instrAudio = null;
-let bgmInterval = null, instrInterval = null;
 
 function fmtTime(s) {
   if (!s || isNaN(s)) return '--:--';
@@ -398,10 +363,9 @@ function setupAudio(audioEl, btn, progressEl, durationEl) {
   btn.addEventListener('click', e => {
     e.stopPropagation();
     if (audioEl.paused) {
-      // stop other
       if (audioEl === bgmAudio && instrAudio && !instrAudio.paused) { instrAudio.pause(); instrBtn.textContent='▶'; instrBtn.classList.remove('active'); }
       if (audioEl === instrAudio && bgmAudio && !bgmAudio.paused) { bgmAudio.pause(); bgmBtn.textContent='▶'; bgmBtn.classList.remove('active'); }
-      audioEl.play();
+      audioEl.play().catch(()=>{ alert('음원 파일을 불러올 수 없습니다.'); });
       btn.textContent = '⏸';
       btn.classList.add('active');
     } else {
@@ -412,7 +376,6 @@ function setupAudio(audioEl, btn, progressEl, durationEl) {
   });
 }
 
-// ── MODAL ──
 const overlay = document.getElementById('modalOverlay');
 const modal   = document.getElementById('modal');
 const bgmBtn  = document.getElementById('bgmBtn');
@@ -426,7 +389,6 @@ function openModal(id, e) {
   if (!c) return;
   currentCard = c;
 
-  // stop any playing
   if (bgmAudio)   { bgmAudio.pause(); bgmAudio.src = ''; }
   if (instrAudio) { instrAudio.pause(); instrAudio.src = ''; }
   bgmBtn.textContent = '▶'; bgmBtn.classList.remove('active');
@@ -436,7 +398,6 @@ function openModal(id, e) {
   document.getElementById('bgmDuration').textContent = '--:--';
   document.getElementById('instrDuration').textContent = '--:--';
 
-  // populate
   const colors = {analyst:'#4f46e5',diplomat:'#059669',sentinel:'#dc2626',explorer:'#d97706'};
   const bgs    = {analyst:'#eef2ff',diplomat:'#ecfdf5',sentinel:'#fef2f2',explorer:'#fffbeb'};
   document.getElementById('modalHead').style.background = bgs[c.group];
@@ -450,12 +411,10 @@ function openModal(id, e) {
   document.getElementById('modalDlBtn').download = `${c.name}.pdf`;
   document.getElementById('modalDlBtn').textContent = `⬇ ${c.name} 교구 다운로드`;
 
-  // color progress bars
   document.getElementById('bgmProgress').style.background = colors[c.group];
   document.getElementById('instrProgress').style.background = colors[c.group];
 
-  // setup audio — absolute URL for GitHub Pages CORS
-  bgmAudio = new Audio(BASE + c.audio);
+  bgmAudio = new Audio(encodeURI(BASE + c.audio));
   instrAudio = null;
   document.getElementById('instrRow').style.display = 'none';
   setupAudio(bgmAudio, bgmBtn, document.getElementById('bgmProgress'), document.getElementById('bgmDuration'));
