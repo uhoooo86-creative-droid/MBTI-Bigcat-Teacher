@@ -466,7 +466,7 @@ document.getElementById('previewBtn').addEventListener('click', () => {
     frame.src = '';
     btn.textContent = '👁 미리보기';
   } else {
-    frame.src = encodeURI(BASE + currentCard.pdf);
+    frame.src = 'https://docs.google.com/viewer?embedded=true&url=' + encodeURIComponent(BASE + currentCard.pdf);
     wrap.classList.add('open');
     btn.textContent = '✕ 닫기';
   }
