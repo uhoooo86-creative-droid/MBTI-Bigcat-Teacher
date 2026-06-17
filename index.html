@@ -203,6 +203,27 @@
     text-decoration: none; transition: background 0.15s, color 0.15s;
   }
   .modal-dl-btn:hover { background: var(--ink); color: #fff; }
+
+  .pdf-actions { display: flex; gap: 8px; }
+  .pdf-actions .modal-dl-btn { flex: 1; }
+  .btn-preview {
+    flex: 1; display: flex; align-items: center; justify-content: center; gap: 8px;
+    padding: 12px; border-radius: 12px; border: 2px solid var(--ink);
+    background: var(--ink); color: #fff;
+    font-size: 13px; font-weight: 700; cursor: pointer;
+    transition: opacity 0.15s;
+  }
+  .btn-preview:hover { opacity: 0.85; }
+
+  .pdf-preview-wrap {
+    display: none; margin-top: 12px;
+    border: 2px solid var(--ink); border-radius: 12px;
+    overflow: hidden; background: #525659;
+  }
+  .pdf-preview-wrap.open { display: block; }
+  .pdf-preview-wrap iframe {
+    width: 100%; height: 360px; border: none; display: block;
+  }
   .footer {
     text-align: center; margin-top: 64px;
     font-family: 'Bebas Neue', sans-serif; font-size: 12px;
@@ -269,8 +290,14 @@
         </div>
       </div>
       <div class="modal-section">
-        <div class="modal-section-label">📄 교구 다운로드</div>
-        <a class="modal-dl-btn" id="modalDlBtn" href="#" download>⬇ PDF 교구 다운로드</a>
+        <div class="modal-section-label">📄 교구</div>
+        <div class="pdf-actions">
+          <button class="btn-preview" id="previewBtn">👁 미리보기</button>
+          <a class="modal-dl-btn" id="modalDlBtn" href="#" download>⬇ 다운로드</a>
+        </div>
+        <div class="pdf-preview-wrap" id="pdfPreviewWrap">
+          <iframe id="pdfPreviewFrame" src=""></iframe>
+        </div>
       </div>
     </div>
   </div>
@@ -409,7 +436,12 @@ function openModal(id, e) {
   document.getElementById('bgmLabel').textContent = `🎵 ${c.name}`;
   document.getElementById('modalDlBtn').href = BASE + c.pdf;
   document.getElementById('modalDlBtn').download = `${c.name}.pdf`;
-  document.getElementById('modalDlBtn').textContent = `⬇ ${c.name} 교구 다운로드`;
+  document.getElementById('modalDlBtn').textContent = `⬇ 다운로드`;
+
+  // reset preview state
+  document.getElementById('pdfPreviewWrap').classList.remove('open');
+  document.getElementById('pdfPreviewFrame').src = '';
+  document.getElementById('previewBtn').textContent = '👁 미리보기';
 
   document.getElementById('bgmProgress').style.background = colors[c.group];
   document.getElementById('instrProgress').style.background = colors[c.group];
@@ -423,7 +455,27 @@ function openModal(id, e) {
   document.body.style.overflow = 'hidden';
 }
 
+document.getElementById('previewBtn').addEventListener('click', () => {
+  const wrap = document.getElementById('pdfPreviewWrap');
+  const frame = document.getElementById('pdfPreviewFrame');
+  const btn = document.getElementById('previewBtn');
+  if (!currentCard) return;
+
+  if (wrap.classList.contains('open')) {
+    wrap.classList.remove('open');
+    frame.src = '';
+    btn.textContent = '👁 미리보기';
+  } else {
+    frame.src = encodeURI(BASE + currentCard.pdf);
+    wrap.classList.add('open');
+    btn.textContent = '✕ 닫기';
+  }
+});
+
 function closeModal() {
+  document.getElementById('pdfPreviewWrap').classList.remove('open');
+  document.getElementById('pdfPreviewFrame').src = '';
+  document.getElementById('previewBtn').textContent = '👁 미리보기';
   if (bgmAudio)   { bgmAudio.pause(); bgmAudio.src = ''; }
   if (instrAudio) { instrAudio.pause(); instrAudio.src = ''; }
   overlay.classList.remove('open');
